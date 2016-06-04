@@ -13,6 +13,15 @@ $ ->
 
   navigator.getUserMedia audio: true, (stream) ->
 
+    # Trying to read the raw stream
+
+    reader = new FileReader(stream)
+    reader.addEventListener "loadend", ->
+      console.log reader.result
+      console.log reader.result[0]
+
+    # Using the built-in audio analyser stuff
+
     analyser = context.createAnalyser()
     analyser.fftSize = FFT_SIZE
 
