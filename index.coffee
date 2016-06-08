@@ -1,7 +1,7 @@
 navigator.getUserMedia = navigator.getUserMedia ? navigator.webkitGetUserMedia
 
 FFT_SIZE = 2048
-TAIL_BINS = 16
+TAIL_BINS = 100
 
 $ ->
 
@@ -15,10 +15,10 @@ $ ->
 
     # Trying to read the raw stream
 
-    reader = new FileReader(stream)
-    reader.addEventListener "loadend", ->
-      console.log reader.result
-      console.log reader.result[0]
+    media_recorder = new MediaRecorder(stream)
+    media_recorder.start(1000)
+    media_recorder.ondataavailable = (event) ->
+      console.log event.data[0], event.data
 
     # Using the built-in audio analyser stuff
 
